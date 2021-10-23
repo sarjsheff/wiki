@@ -1,3 +1,3 @@
 ## Wiki
 
-- [kubernetes](kubernetes/README.md)
+- [kubernetes](kubernetes/)
