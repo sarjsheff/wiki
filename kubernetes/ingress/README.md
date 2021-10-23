@@ -52,3 +52,26 @@ kubectl apply -f nginx-ingress-lb.yaml
   annotations:
     kubernetes.io/ingress.class: "nginx"
 ```
+
+### Настройки
+
+Пример настроек для nginx ingress (применяются автоматически после создания/изменения):
+
+```
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: ingress-nginx-controller
+  namespace: ingress-nginx
+  labels:
+    app.kubernetes.io/name: ingress-nginx
+    app.kubernetes.io/part-of: ingress-nginx
+data:
+  proxy-connect-timeout: "11"
+  proxy-read-timeout: "120"
+  proxy-send-timeout: "120"
+```
+
+Можно посмотреть (и проверить выставленные параметры) конфиг nginx для ingress: ```kubectl exec daemonset.apps/ingress-nginx-controller -it -n ingress-nginx -- cat nginx.conf```
+
+Например: ```kubectl exec daemonset.apps/ingress-nginx-controller -it -n ingress-nginx -- cat nginx.conf | grep 'proxy_connect_timeout'```
