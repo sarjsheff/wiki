@@ -1,0 +1,4 @@
+services:
+  temp:
+    image: alpine
+    command: ping webhost

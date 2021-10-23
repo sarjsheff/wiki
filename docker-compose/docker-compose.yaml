@@ -1,0 +1,19 @@
+version: "2"
+services:
+  web:
+    image: nginx
+    ports:
+      - "${TEST}:80"
+  top:
+    image: alpine
+    command: /usr/bin/top
+    profiles: ["test"]
+  ping:
+    extends:
+      file: common.yaml
+      service: temp
+    depends_on:
+      - web
+    links:
+      - "web:webhost"
+
