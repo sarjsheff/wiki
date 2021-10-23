@@ -72,6 +72,8 @@ data:
   proxy-send-timeout: "120"
 ```
 
+Список всех параметров (https://kubernetes.github.io/ingress-nginx/user-guide/nginx-configuration/configmap/).
+
 Можно посмотреть (и проверить выставленные параметры) конфиг nginx для ingress: ```kubectl exec daemonset.apps/ingress-nginx-controller -it -n ingress-nginx -- cat nginx.conf```
 
 Например: ```kubectl exec daemonset.apps/ingress-nginx-controller -it -n ingress-nginx -- cat nginx.conf | grep 'proxy_connect_timeout'```
