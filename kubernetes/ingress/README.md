@@ -1,11 +1,20 @@
 ## nginx ingress
 
+### Отключение traefik
+
+```
+rm /var/lib/rancher/k3s/server/manifests/traefik.yaml
+helm uninstall traefik -n kube-system
+helm uninstall traefik-crd -n kube-system
+systemctl restart k3s
+```
+
 ### Установка
 
 Установка NodePort:
 
 ```
-kubectl apply -f https://raw.githubusercontent.com/kubernetes/ingress-nginx/controller-v1.0.4/deploy/static/provider/baremetal/deploy.yaml
+kubectl apply -f https://raw.githubusercontent.com/kubernetes/ingress-nginx/controller-v1.1.1/deploy/static/provider/baremetal/deploy.yaml
 ```
 
 Проброс через lb:
@@ -51,6 +60,12 @@ kubectl apply -f nginx-ingress-lb.yaml
 ```
   annotations:
     kubernetes.io/ingress.class: "nginx"
+```
+
+Например если стоит rancher то нужно добавить ему аннотацию:
+
+```
+kubectl annotate ingress rancher -n cattle-system kubernetes.io/ingress.class="nginx"
 ```
 
 ### Настройки
