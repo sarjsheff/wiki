@@ -78,7 +78,7 @@ spec:
 
 ```
 helm repo add cert-manager-webhook-pdns https://zachomedia.github.io/cert-manager-webhook-pdns
-helm install cert-manager-webhook-pdns cert-manager-webhook-pdns/cert-manager-webhook-pdns
+helm install cert-manager-webhook-pdns cert-manager-webhook-pdns/cert-manager-webhook-pdns -n cert-manager
 ```
 
 ```
