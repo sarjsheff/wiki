@@ -1,7 +1,7 @@
 ## cert-manager
 
 ```
-kubectl apply -f https://github.com/jetstack/cert-manager/releases/download/v1.5.4/cert-manager.yaml
+kubectl apply -f https://github.com/jetstack/cert-manager/releases/download/v1.7.0/cert-manager.yaml
 ```
 
 ## Автоматический выпуск (и дальнейший перевыпуск) сертификата letsencrypt с проверкой по HTTP
@@ -72,4 +72,42 @@ spec:
               name: test-nginx-service
               port:
                 number: 80
+```
+
+## Выпуск сертификата через DNS
+
+```
+helm repo add cert-manager-webhook-pdns https://zachomedia.github.io/cert-manager-webhook-pdns
+helm install cert-manager-webhook-pdns cert-manager-webhook-pdns/cert-manager-webhook-pdns
+```
+
+```
+apiVersion: cert-manager.io/v1
+kind: ClusterIssuer
+metadata:
+  name: letsencrypt-dns
+spec:
+  acme:
+    email: you@email.com
+    preferredChain: ""
+    privateKeySecretRef:
+      name: letsencrypt-dns
+    server: https://acme-v02.api.letsencrypt.org/directory
+    solvers:
+    - dns01:
+        webhook:
+          config:
+            apiUrl: https://api.youpowerdns.com
+            secretName: pdns-secret
+            zoneName: example.com.
+          groupName: acme.yourdomain.tld
+          solverName: pdns
+---
+apiVersion: v1
+kind: Secret
+metadata:
+  name: pdns-secret
+  namespace: cert-manager
+data:
+  api-key: <base64 api key>
 ```
