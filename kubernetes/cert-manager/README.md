@@ -111,3 +111,22 @@ metadata:
 data:
   api-key: <base64 api key>
 ```
+
+```
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: test-example-com-ca
+  namespace: your-ingress-namespace
+spec:
+  commonName: test.example.com
+  dnsNames:
+  - test.example.com
+  issuerRef:
+    group: cert-manager.io
+    kind: ClusterIssuer
+    name: letsencrypt-dns
+  secretName: test-example-com-ca
+```
+
+Придется подождать пока dns запись раскатится по dnsам.
