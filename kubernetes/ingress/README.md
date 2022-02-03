@@ -15,6 +15,7 @@ systemctl restart k3s
 
 ```
 kubectl apply -f https://raw.githubusercontent.com/kubernetes/ingress-nginx/controller-v1.1.1/deploy/static/provider/baremetal/deploy.yaml
+kubectl annotate ingressclass nginx ingressclass.kubernetes.io/is-default-class=true
 ```
 
 Проброс через lb:
