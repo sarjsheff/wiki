@@ -77,8 +77,8 @@ spec:
 ## Выпуск сертификата через DNS
 
 ```
-helm repo add cert-manager-webhook-pdns https://zachomedia.github.io/cert-manager-webhook-pdns
-helm install cert-manager-webhook-pdns cert-manager-webhook-pdns/cert-manager-webhook-pdns -n cert-manager --set groupName=acme.yourdomain.tld
+helm repo add cert-manager-webhook-powerdns https://lordofsystem.github.io/cert-manager-webhook-powerdns
+helm install --namespace cert-manager cert-manager-webhook-powerdns cert-manager-webhook-powerdns/cert-manager-webhook-powerdns --set groupName=acme.yourdomain.tld
 ```
 
 ```
