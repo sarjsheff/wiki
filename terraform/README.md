@@ -2,7 +2,6 @@
 
 ```
 resource "kubernetes_service" "minio" {
-  depends_on = [kubernetes_namespace.minio_ns]
   metadata {
     name      = "minio"
     namespace = "minio"
