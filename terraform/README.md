@@ -1,3 +1,32 @@
+### Service
+
+```
+resource "kubernetes_service" "minio" {
+  depends_on = [kubernetes_namespace.minio_ns]
+  metadata {
+    name      = "minio"
+    namespace = "minio"
+  }
+  spec {
+    selector = {
+      app = "minio"
+    }
+    port {
+      name        = "api"
+      port        = 9000
+      target_port = 9000
+    }
+    port {
+      name        = "console"
+      port        = 9001
+      target_port = 9001
+    }
+
+    type = "LoadBalancer"
+  }
+}
+```
+
 ### ClusterIssuer
 
 ```
