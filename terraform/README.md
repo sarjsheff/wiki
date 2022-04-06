@@ -40,7 +40,7 @@ resource "kubernetes_manifest" "host_example_ru" {
     kind       = "Certificate"
     metadata   = {
       name      = "host-example-ru"
-      namespace = "minio"
+      namespace = "namespace"
     }
     spec = {
       commonName = "host.example.ru"
