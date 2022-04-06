@@ -56,3 +56,54 @@ resource "kubernetes_manifest" "host_example_ru" {
 }
 
 ```
+
+### Ingress
+
+```
+resource "kubernetes_manifest" "http_ingress" {
+
+  manifest = {
+    "apiVersion" = "networking.k8s.io/v1"
+    "kind"       = "Ingress"
+    "metadata"   = {
+      "name"      = "host-ingress"
+      "namespace" = "namespace"
+      annotations = {
+        "kubernetes.io/ingress.class" = "nginx"
+      }
+    }
+    "spec" = {
+      "rules" = [
+        {
+          "host" = "host.example.ru"
+          "http" = {
+            "paths" = [
+              {
+                "backend" = {
+                  "service" = {
+                    "name" = "service-name"
+                    "port" = {
+                      "number" = 80
+                    }
+                  }
+                }
+                "path"     = "/"
+                "pathType" = "Prefix"
+              },
+            ]
+          }
+        },
+      ]
+      "tls" = [
+        {
+          "hosts" = [
+            "host.example.ru",
+          ]
+          "secretName" = "host-example-ru-tls"
+        },
+      ]
+    }
+  }
+}
+
+```
